@@ -11,6 +11,7 @@ app.get('/', (req, res) => res.send('API running'));
 app.use('/api/recipes', require('./routes/recipes'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/upload', require('./routes/upload'));
+app.use('/api/admin', require('./routes/admin'));
 
 mongoose
   .connect(process.env.MONGO_URI)

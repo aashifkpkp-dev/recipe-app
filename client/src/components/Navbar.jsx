@@ -19,6 +19,7 @@ export default function Navbar() {
         <div className="flex items-center gap-5 text-gray-700 font-medium">
           <Link to="/" className="hover:text-orange-600">Home</Link>
           {user && <Link to="/favorites" className="hover:text-orange-600">❤️ Favorites</Link>}
+          {user?.role === 'admin' && <Link to="/admin" className="hover:text-orange-600">🛠 Admin</Link>}
           {user ? (
             <>
               <Link to="/add"

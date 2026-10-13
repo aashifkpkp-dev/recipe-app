@@ -15,7 +15,8 @@ export default function RecipeDetail() {
 
   if (!recipe) return <p className="text-center py-20 text-gray-500">Loading...</p>
 
-  const isAuthor = user && recipe.author && recipe.author._id === user.id
+  const isAuthor =
+  user && ((recipe.author && recipe.author._id === user.id) || user.role === 'admin')
   const isFavorite = user && user.favorites?.includes(recipe._id)
 
   const handleDelete = async () => {

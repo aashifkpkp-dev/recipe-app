@@ -75,8 +75,9 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: 'Recipe not found' });
-    if (String(recipe.author) !== req.userId)
-      return res.status(403).json({ message: 'Not allowed' });
+    const me = await User.findById(req.userId);
+if (String(recipe.author) !== req.userId && me?.role !== 'admin')
+  return res.status(403).json({ message: 'Not allowed' });
 
     await recipe.deleteOne();
     res.json({ message: 'Recipe deleted' });

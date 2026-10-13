@@ -7,11 +7,17 @@ import Favorites from './pages/Favorites'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { useAuth } from './context/AuthContext'
+import Admin from './pages/Admin'
 
 function Protected({ children }) {
   const { user, loading } = useAuth()
   if (loading) return null
   return user ? children : <Navigate to="/login" />
+}
+function AdminOnly({ children }) {
+  const { user, loading } = useAuth()
+  if (loading) return null
+  return user?.role === 'admin' ? children : <Navigate to="/" />
 }
 
 export default function App() {
@@ -26,6 +32,7 @@ export default function App() {
         <Route path="/favorites" element={<Protected><Favorites /></Protected>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/admin" element={<AdminOnly><Admin /></AdminOnly>} />
       </Routes>
     </div>
   )

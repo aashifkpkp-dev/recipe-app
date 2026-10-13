@@ -54,7 +54,13 @@ router.post('/login', async (req, res) => {
 // Who am I (used to keep the user logged in after refresh)
 router.get('/me', auth, async (req, res) => {
   const user = await User.findById(req.userId).select('-password');
-  res.json({ id: user._id, name: user.name, email: user.email, favorites: user.favorites });
+  res.json({
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    favorites: user.favorites,
+    role: user.role,
+  });
 });
 
 module.exports = router;
